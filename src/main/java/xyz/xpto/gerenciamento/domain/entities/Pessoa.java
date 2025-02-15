@@ -14,6 +14,7 @@ import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
@@ -21,6 +22,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @AllArgsConstructor
+@NoArgsConstructor
 public class Pessoa {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY, generator = "pessoa_id_sequence")
@@ -35,6 +37,6 @@ public class Pessoa {
     @JoinColumn(name = "equipe_id", nullable = true)
     private Equipe equipe;
 
-    @OneToMany(mappedBy = "pessoa", targetEntity = Tarefa.class)
+    @OneToMany(mappedBy = "responsavel", targetEntity = Tarefa.class)
     private List<Tarefa> tarefas;
 }

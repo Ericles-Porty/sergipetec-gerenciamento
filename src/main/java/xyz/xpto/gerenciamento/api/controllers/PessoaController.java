@@ -1,11 +1,9 @@
 package xyz.xpto.gerenciamento.api.controllers;
 
-import java.util.List;
-import java.util.stream.Collectors;
-
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -14,13 +12,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import jakarta.validation.Valid;
-import xyz.xpto.gerenciamento.application.services.pessoa.dtos.cadastrarPessoa.CadastrarPessoaRequest;
-import xyz.xpto.gerenciamento.application.services.pessoa.dtos.obterPessoa.ObterPessoaRequest;
-import xyz.xpto.gerenciamento.application.services.pessoa.dtos.obterPessoa.ObterPessoaResponse;
-import xyz.xpto.gerenciamento.application.services.pessoa.dtos.obterPessoas.ObterPessoasRequest;
-import xyz.xpto.gerenciamento.application.services.pessoa.dtos.obterPessoas.ObterPessoasResponse;
-import xyz.xpto.gerenciamento.application.services.pessoa.dtos.obterPessoas.ObterPessoasResponse.PessoaResponse;
-import xyz.xpto.gerenciamento.application.dtos.ErrorResponse;
+import xyz.xpto.gerenciamento.application.services.pessoa.dtos.CadastrarPessoa;
+import xyz.xpto.gerenciamento.application.services.pessoa.dtos.ObterPessoa;
+import xyz.xpto.gerenciamento.application.services.pessoa.dtos.ObterPessoas;
+import xyz.xpto.gerenciamento.api.extensions.StandardResponse;
+import xyz.xpto.gerenciamento.api.extensions.ValidationExtension;
 import xyz.xpto.gerenciamento.application.services.PessoaService;
 
 @RestController
@@ -34,35 +30,28 @@ public class PessoaController {
     }
 
     @GetMapping(value = "/")
-    public ResponseEntity<List<PessoaResponse>> getPessoas() {
-        ObterPessoasResponse response = pessoaService.obterPessoas(new ObterPessoasRequest());
-        return ResponseEntity.ok(response.getPessoas());
+    public ResponseEntity<?> getPessoas() {
+        ObterPessoas.Response response = pessoaService.obterPessoas(new ObterPessoas.Request());
+        return StandardResponse.success(response);
     }
 
     @GetMapping(value = "/{id}")
     public ResponseEntity<?> getPessoa(@PathVariable long id) {
-        ObterPessoaResponse response = pessoaService.obterPessoa(new ObterPessoaRequest(id));
-        if (response == null)
-            return ResponseEntity.notFound().build();
-
-        System.out.println("Response: " + response);
-        return ResponseEntity.ok(response);
+        ObterPessoa.Response response = pessoaService.obterPessoa(new ObterPessoa.Request(id));
+        return StandardResponse.success(response);
     }
 
     @PostMapping(value = "/", consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<?> postPessoa(@Valid @RequestBody CadastrarPessoaRequest request,
+    public ResponseEntity<?> postPessoa(@Valid @RequestBody CadastrarPessoa.Request request,
             BindingResult bindingResult) {
-        if (bindingResult.hasErrors()) {
-            List<String> errors = bindingResult
-                    .getAllErrors()
-                    .stream()
-                    .map(error -> error.getDefaultMessage())
-                    .collect(Collectors.toList());
+        ValidationExtension.validateBindingResult(bindingResult);
 
-            return ResponseEntity.badRequest().body(new ErrorResponse(errors));
-        }
         var response = pessoaService.cadastrarPessoa(request);
         return ResponseEntity.ok(response);
     }
 
+    @DeleteMapping(value = "/{id}")
+    public ResponseEntity<?> deletePessoa(@PathVariable long id) {
+        return ResponseEntity.ok().build();
+    }
 }

@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import jakarta.validation.Valid;
+import lombok.AllArgsConstructor;
 import xyz.xpto.gerenciamento.application.services.pessoa.dtos.CadastrarPessoa;
 import xyz.xpto.gerenciamento.application.services.pessoa.dtos.ObterPessoa;
 import xyz.xpto.gerenciamento.application.services.pessoa.dtos.ObterPessoas;
@@ -20,14 +21,11 @@ import xyz.xpto.gerenciamento.api.extensions.ValidationExtension;
 import xyz.xpto.gerenciamento.application.services.PessoaService;
 
 @RestController
+@AllArgsConstructor
 @RequestMapping(value = "/api/pessoa", produces = MediaType.APPLICATION_JSON_VALUE)
 public class PessoaController {
 
     private final PessoaService pessoaService;
-
-    public PessoaController(PessoaService pessoaService) {
-        this.pessoaService = pessoaService;
-    }
 
     @GetMapping(value = "/")
     public ResponseEntity<?> getPessoas() {
@@ -54,4 +52,5 @@ public class PessoaController {
     public ResponseEntity<?> deletePessoa(@PathVariable long id) {
         return ResponseEntity.ok().build();
     }
+
 }

@@ -23,12 +23,12 @@ public class EquipeRepositoryImpl implements EquipeRepository {
 
     @Override
     public Optional<Equipe> buscarPorId(Long id) {
-        return equipeJpaRepository.findById(id);
+        return equipeJpaRepository.buscarPorId(id);
     }
 
     @Override
     public List<Equipe> buscarTodos() {
-        return equipeJpaRepository.findAll();
+        return equipeJpaRepository.buscarTodos();
     }
 
     @Override
@@ -38,7 +38,7 @@ public class EquipeRepositoryImpl implements EquipeRepository {
 
     @Override
     public void deletar(Long id) {
-        equipeJpaRepository.deleteById(id);
+        equipeJpaRepository.deletar(id);
     }
 
     @Override

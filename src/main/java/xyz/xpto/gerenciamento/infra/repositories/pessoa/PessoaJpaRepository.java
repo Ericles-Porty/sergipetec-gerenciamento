@@ -14,15 +14,30 @@ import xyz.xpto.gerenciamento.domain.entities.Pessoa;
 @Repository
 public interface PessoaJpaRepository extends JpaRepository<Pessoa, Long> {
 
-    @Query(value = "SELECT p FROM Pessoa p WHERE p.id = :id", nativeQuery = true)
+    @Query(value = "SELECT p FROM pessoa p WHERE p.id = :id", nativeQuery = true)
     Optional<Pessoa> buscarPorId(Long id);
 
-    @Query(value = "SELECT p FROM Pessoa p", nativeQuery = true)
+    @Query(value = "SELECT p FROM pessoa p", nativeQuery = true)
     List<Pessoa> buscarTodos();
 
     @Modifying
     @Transactional
-    @Query(value = "DELETE FROM Pessoa p WHERE p.id = :id", nativeQuery = true)
+    @Query(value = "DELETE FROM pessoa p WHERE p.id = :id", nativeQuery = true)
     void deletar(Long id);
+
+    @Modifying
+    @Transactional
+    @Query(value = "UPDATE pessoa p SET p.equipe_id = :idEquipe WHERE p.id = :id", nativeQuery = true)
+    void associarEquipe(Long id, Long idEquipe);
+
+    @Modifying
+    @Transactional
+    @Query(value = "UPDATE pessoa p SET p.equipe_id = NULL WHERE p.id = :id", nativeQuery = true)
+    void desassociarEquipe(Long id);
+
+    @Modifying
+    @Transactional
+    @Query(value = "UPDATE pessoa p SET p.nome = :nome WHERE p.id = :id", nativeQuery = true)
+    void modificarNome(Long id, String nome);
 
 }

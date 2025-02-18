@@ -37,4 +37,19 @@ public class PessoaRepositoryImpl implements PessoaRepository {
     public void deletar(Long id) {
         pessoaJpaRepository.deleteById(id);
     }
+
+    @Override
+    public void associarEquipe(Long id, Long idEquipe) {
+        pessoaJpaRepository.associarEquipe(id, idEquipe);
+    }
+
+    @Override
+    public void desassociarEquipe(Long id) {
+        pessoaJpaRepository.desassociarEquipe(id);
+    }
+
+    @Override
+    public void modificarNome(Long id, String nome) {
+        pessoaJpaRepository.modificarNome(id, nome);
+    }
 }

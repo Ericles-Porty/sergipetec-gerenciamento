@@ -4,6 +4,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
+import lombok.RequiredArgsConstructor;
 import xyz.xpto.gerenciamento.application.interfaces.repositories.PessoaRepository;
 import xyz.xpto.gerenciamento.application.services.pessoa.dtos.AtualizarPessoa;
 import xyz.xpto.gerenciamento.application.services.pessoa.dtos.CadastrarPessoa;
@@ -13,25 +14,16 @@ import xyz.xpto.gerenciamento.application.services.pessoa.dtos.ObterPessoas;
 import xyz.xpto.gerenciamento.domain.entities.Pessoa;
 
 @Service
+@RequiredArgsConstructor
 public class PessoaService {
     private final PessoaRepository repository;
-
-    public PessoaService(PessoaRepository repository) {
-        this.repository = repository;
-    }
+    private final PessoaMapper mapper;
 
     public ObterPessoas.Response obterPessoas(ObterPessoas.Request request) {
         var pessoas = repository.buscarTodos();
 
         var response = pessoas.stream()
-                .map(pessoa -> {
-                    var equipe = pessoa.getEquipe() != null
-                            ? new ObterPessoas.Response.EquipeResponse(pessoa.getEquipe().getId(),
-                                    pessoa.getEquipe().getNome())
-                            : null;
-
-                    return new ObterPessoas.Response.PessoaResponse(pessoa.getId(), pessoa.getNome(), equipe);
-                })
+                .map(mapper::toResponse)
                 .toList();
 
         return new ObterPessoas.Response(response);

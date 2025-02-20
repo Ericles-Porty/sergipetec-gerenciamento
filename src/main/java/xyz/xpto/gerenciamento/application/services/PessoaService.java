@@ -6,6 +6,7 @@ import org.springframework.web.server.ResponseStatusException;
 
 import lombok.RequiredArgsConstructor;
 import xyz.xpto.gerenciamento.application.interfaces.repositories.PessoaRepository;
+import xyz.xpto.gerenciamento.application.mappers.PessoaMapper;
 import xyz.xpto.gerenciamento.application.services.pessoa.dtos.AtualizarPessoa;
 import xyz.xpto.gerenciamento.application.services.pessoa.dtos.CadastrarPessoa;
 import xyz.xpto.gerenciamento.application.services.pessoa.dtos.DeletarPessoa;
@@ -22,34 +23,29 @@ public class PessoaService {
     public ObterPessoas.Response obterPessoas(ObterPessoas.Request request) {
         var pessoas = repository.buscarTodos();
 
-        var response = pessoas.stream()
-                .map(mapper::toResponse)
-                .toList();
-
-        return new ObterPessoas.Response(response);
+        return mapper.pessoaToObterPessoasResponse(pessoas);
     }
 
     public ObterPessoa.Response obterPessoa(ObterPessoa.Request request) {
         var pessoa = repository.buscarPorId(request.id())
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Pessoa não encontrada"));
 
-        var equipe = pessoa.getEquipe() != null
-                ? new ObterPessoa.Response.EquipeResponse(pessoa.getEquipe().getId(), pessoa.getEquipe().getNome())
-                : null;
-
-        var response = new ObterPessoa.Response(pessoa.getId(), pessoa.getNome(), equipe);
-        return response;
+        return mapper.pessoaToObterPessoaResponse(pessoa);
     }
 
     public CadastrarPessoa.Response cadastrarPessoa(CadastrarPessoa.Request request) {
         var pessoa = new Pessoa();
         pessoa.setNome(request.nome());
+
         var pessoaCriada = repository.salvar(pessoa);
-        var response = new CadastrarPessoa.Response(pessoaCriada.getId(), pessoaCriada.getNome());
-        return response;
+
+        return mapper.pessoaToCadastrarPessoaResponse(pessoaCriada);
     }
 
     public DeletarPessoa.Response deletarPessoa(DeletarPessoa.Request request) {
+        repository.buscarPorId(request.id())
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Pessoa não encontrada"));
+
         repository.deletar(request.id());
         return new DeletarPessoa.Response();
     }

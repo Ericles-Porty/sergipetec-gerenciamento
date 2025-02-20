@@ -33,6 +33,11 @@ public class StandardResponse<R> {
                 new StandardResponse<>(true, 200, data, "Operação realizada com sucesso.", null));
     }
 
+    public static <R> ResponseEntity<StandardResponse<R>> success() {
+        return ResponseEntity.ok(
+                new StandardResponse<>(true, 200, null, "Operação realizada com sucesso.", null));
+    }
+
     public static <R> ResponseEntity<StandardResponse<R>> success(R data, int code) {
         return ResponseEntity.status(code).body(
                 new StandardResponse<>(true, code, data, "Operação realizada com sucesso.", null));
@@ -66,7 +71,8 @@ public class StandardResponse<R> {
 
     public static <R> ResponseEntity<StandardResponse<R>> badRequest(String message) {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST)
-                .body(new StandardResponse<>(false, 400, null, message, Collections.singletonList(message)));
+                .body(new StandardResponse<>(false, 400, null, "Requisição inválida.",
+                        Collections.singletonList(message)));
     }
 
     public static <R> ResponseEntity<StandardResponse<R>> unauthorized() {

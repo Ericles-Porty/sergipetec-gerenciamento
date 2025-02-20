@@ -3,8 +3,10 @@ package xyz.xpto.gerenciamento.api.configurations;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import org.springframework.dao.InvalidDataAccessResourceUsageException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
+import org.springframework.web.HttpMediaTypeNotSupportedException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
@@ -64,7 +66,8 @@ public class GlobalExceptionHandler {
     public ResponseEntity<StandardResponse<Void>> handleResponseStatusException(
             ResponseStatusException ex) {
         return ResponseEntity.status(ex.getStatusCode())
-                .body(new StandardResponse<>(false, ex.getStatusCode().value(), null, ex.getReason(),
+                .body(new StandardResponse<>(false, ex.getStatusCode().value(), null,
+                        "Houve um erro ao processar a requisição.",
                         List.of(ex.getReason())));
     }
 
@@ -78,10 +81,32 @@ public class GlobalExceptionHandler {
     }
 
     /**
+     * Trata exceções de tipo de mídia não suportado.
+     */
+    @ExceptionHandler(HttpMediaTypeNotSupportedException.class)
+    public ResponseEntity<StandardResponse<Void>> handleHttpMediaTypeNotSupportedException(
+            HttpMediaTypeNotSupportedException ex) {
+        return StandardResponse
+                .badRequest(List.of("Verifique se o cabeçalho Content-Type da requisição está correto."));
+    }
+
+    /**
+     * Trata exceções de acesso inválido ao banco de dados.
+     */
+    @ExceptionHandler(InvalidDataAccessResourceUsageException.class)
+    public ResponseEntity<StandardResponse<Void>> handleInvalidDataAccessResourceUsageException(
+            InvalidDataAccessResourceUsageException ex) {
+                // Logar a exceção.
+        return StandardResponse.error("Houve um erro ao acessar o banco de dados.");
+    }
+
+    // TODO: Adicionar tratamento de exceções gerais ao final do desenvolvimento.
+    /**
      * Trata exceções genéricas.
      */
-    @ExceptionHandler(Exception.class)
-    public ResponseEntity<StandardResponse<Void>> handleException(Exception ex) {
-        return StandardResponse.error("Houve um erro inesperado ao processar a requisição.");
-    }
+    // @ExceptionHandler(Exception.class)
+    // public ResponseEntity<StandardResponse<Void>> handleException(Exception ex) {
+    // return StandardResponse.error("Houve um erro inesperado ao processar a
+    // requisição.");
+    // }
 }

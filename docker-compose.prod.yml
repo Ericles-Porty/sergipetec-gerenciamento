@@ -29,19 +29,20 @@ services:
   app:
     build:
       context: .
-      dockerfile: Dockerfile.dev
+      dockerfile: Dockerfile.prod
+    depends_on:
+      oracle:
+        condition: service_healthy
     container_name: gerenciamento-app
-    volumes:
-      - .:/app
-    command: mvn spring-boot:run
-    environment:
-      SPRING_DATASOURCE_URL: jdbc:oracle:thin:@oracle/FREEPDB1
-      SPRING_DATASOURCE_USERNAME: system
-      SPRING_DATASOURCE_PASSWORD: secret
-      SPRING_REDIS_HOST: redis
-      SPRING_REDIS_PORT: 6379
+    command: java -jar target/*.jar
     ports:
       - "8080:8080"
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:oracle:thin:@oracle/FREEPDB1
+      SPRING_DATASOURCE_USERNAME: SergipeTecDev01
+      SPRING_DATASOURCE_PASSWORD: STD01@
+      SPRING_REDIS_HOST: redis
+      SPRING_REDIS_PORT: 6379
     networks:
       - gerenciamento-network
 

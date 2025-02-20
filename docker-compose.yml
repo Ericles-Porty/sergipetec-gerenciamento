@@ -13,38 +13,57 @@ services:
     volumes:
       - oracle-data:/opt/oracle/oradata
     healthcheck:
-      test: ["CMD-SHELL", "echo 'SELECT 1 FROM DUAL;' | sqlplus -s system/secret@FREEPDB1 || exit 1"]
+      test:
+        [
+          "CMD-SHELL",
+          "echo 'SELECT 1 FROM DUAL;' | sqlplus -s system/secret@FREEPDB1 || exit 1",
+        ]
       interval: 10s
       retries: 5
       start_period: 10s
+    deploy:
+      resources:
+        limits:
+          cpus: "0.5"
+          memory: 512M
+        reservations:
+          cpus: "0.25"
+          memory: 256M
 
-  redis:
-    image: "redis:latest"
-    container_name: "gerenciamento-redis-db"
-    ports:
-      - 6379:6379
-    networks:
-      - gerenciamento-network
+  # redis:
+  #   image: "redis:latest"
+  #   container_name: "gerenciamento-redis-db"
+  #   ports:
+  #     - 6379:6379
+  #   networks:
+  #     - gerenciamento-network
 
   app:
     build:
       context: .
       dockerfile: Dockerfile
-    depends_on:
-      oracle:
-        condition: service_healthy
     container_name: gerenciamento-app
-    command: java -jar target/*.jar
-    ports:
-      - "8080:8080"
+    volumes:
+      - .:/app:cached
+    command: mvn spring-boot:run
     environment:
       SPRING_DATASOURCE_URL: jdbc:oracle:thin:@oracle/FREEPDB1
-      SPRING_DATASOURCE_USERNAME: SergipeTecDev01
-      SPRING_DATASOURCE_PASSWORD: STD01@
+      SPRING_DATASOURCE_USERNAME: system
+      SPRING_DATASOURCE_PASSWORD: secret
       SPRING_REDIS_HOST: redis
       SPRING_REDIS_PORT: 6379
+    ports:
+      - "8080:8080"
     networks:
       - gerenciamento-network
+    deploy:
+      resources:
+        limits:
+          cpus: "0.5"
+          memory: 512M
+        reservations:
+          cpus: "0.25"
+          memory: 256M
 
 networks:
   gerenciamento-network:

@@ -6,16 +6,18 @@ import java.util.Optional;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.stereotype.Repository;
 
 import jakarta.transaction.Transactional;
 import xyz.xpto.gerenciamento.domain.entities.Equipe;
 
+@Repository
 public interface EquipeJpaRepository extends JpaRepository<Equipe, Long> {
 
-    @Query(value = "SELECT e FROM equipe e WHERE e.id = :id", nativeQuery = true)
+    @Query(value = "SELECT * FROM equipe e WHERE e.id = :id", nativeQuery = true)
     Optional<Equipe> buscarPorId(Long id);
 
-    @Query(value = "SELECT e FROM equipe e", nativeQuery = true)
+    @Query(value = "SELECT * FROM equipe e", nativeQuery = true)
     List<Equipe> buscarTodos();
 
     @Modifying

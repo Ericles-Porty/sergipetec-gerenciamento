@@ -6,16 +6,18 @@ import java.util.Optional;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.stereotype.Repository;
 
 import jakarta.transaction.Transactional;
 import xyz.xpto.gerenciamento.domain.entities.StatusProjeto;
 
+@Repository
 public interface StatusProjetoJpaRepository extends JpaRepository<StatusProjeto, Long> {
 
-    @Query(value = "SELECT s FROM status_projeto s WHERE s.id = :id", nativeQuery = true)
+    @Query(value = "SELECT * FROM status_projeto s WHERE s.id = :id", nativeQuery = true)
     Optional<StatusProjeto> buscarPorId(Long id);
 
-    @Query(value = "SELECT s FROM status_projeto s", nativeQuery = true)
+    @Query(value = "SELECT * FROM status_projeto s", nativeQuery = true)
     List<StatusProjeto> buscarTodos();
 
     @Modifying

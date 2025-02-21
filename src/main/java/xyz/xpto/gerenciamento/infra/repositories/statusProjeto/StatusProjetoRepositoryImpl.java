@@ -3,9 +3,12 @@ package xyz.xpto.gerenciamento.infra.repositories.statusProjeto;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.stereotype.Repository;
+
 import xyz.xpto.gerenciamento.application.interfaces.repositories.StatusProjetoRepository;
 import xyz.xpto.gerenciamento.domain.entities.StatusProjeto;
 
+@Repository
 public class StatusProjetoRepositoryImpl implements StatusProjetoRepository {
 
     private final StatusProjetoJpaRepository statusProjetoJpaRepository;

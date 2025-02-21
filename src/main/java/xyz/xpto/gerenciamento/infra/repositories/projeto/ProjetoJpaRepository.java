@@ -14,10 +14,10 @@ import xyz.xpto.gerenciamento.domain.entities.Projeto;
 @Repository
 public interface ProjetoJpaRepository extends JpaRepository<Projeto, Long> {
 
-    @Query(value = "SELECT p FROM projeto p WHERE p.id = :id", nativeQuery = true)
+    @Query(value = "SELECT * FROM projeto p WHERE p.id = :id", nativeQuery = true)
     Optional<Projeto> buscarPorId(Long id);
 
-    @Query(value = "SELECT p FROM projeto p", nativeQuery = true)
+    @Query(value = "SELECT * FROM projeto p", nativeQuery = true)
     List<Projeto> buscarTodos();
 
     @Modifying

@@ -3,9 +3,12 @@ package xyz.xpto.gerenciamento.infra.repositories.statusTarefa;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.stereotype.Repository;
+
 import xyz.xpto.gerenciamento.application.interfaces.repositories.StatusTarefaRepository;
 import xyz.xpto.gerenciamento.domain.entities.StatusTarefa;
 
+@Repository
 public class StatusTarefaRepositoryImpl implements StatusTarefaRepository {
 
     private final StatusTarefaJpaRepository statusTarefaJpaRepository;

@@ -6,16 +6,18 @@ import java.util.Optional;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.stereotype.Repository;
 
 import jakarta.transaction.Transactional;
 import xyz.xpto.gerenciamento.domain.entities.Tarefa;
 
+@Repository
 public interface TarefaJpaRepository extends JpaRepository<Tarefa, Long> {
 
-    @Query(value = "SELECT t FROM tarefa t WHERE t.id = :id", nativeQuery = true)
+    @Query(value = "SELECT * FROM tarefa t WHERE t.id = :id", nativeQuery = true)
     Optional<Tarefa> buscarPorId(Long id);
 
-    @Query(value = "SELECT t FROM tarefa t", nativeQuery = true)
+    @Query(value = "SELECT * FROM tarefa t", nativeQuery = true)
     List<Tarefa> buscarTodos();
 
     @Modifying

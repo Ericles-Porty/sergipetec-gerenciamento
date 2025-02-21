@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
+import xyz.xpto.gerenciamento.application.services.pessoa.PessoaService;
 import xyz.xpto.gerenciamento.application.services.pessoa.dtos.AtualizarPessoa;
 import xyz.xpto.gerenciamento.application.services.pessoa.dtos.CadastrarPessoa;
 import xyz.xpto.gerenciamento.application.services.pessoa.dtos.DeletarPessoa;
@@ -21,7 +22,6 @@ import xyz.xpto.gerenciamento.application.services.pessoa.dtos.ObterPessoa;
 import xyz.xpto.gerenciamento.application.services.pessoa.dtos.ObterPessoas;
 import xyz.xpto.gerenciamento.api.extensions.StandardResponse;
 import xyz.xpto.gerenciamento.api.extensions.ValidationExtension;
-import xyz.xpto.gerenciamento.application.services.PessoaService;
 
 @RestController
 @AllArgsConstructor

@@ -12,7 +12,6 @@ import xyz.xpto.gerenciamento.domain.entities.Equipe;
 import xyz.xpto.gerenciamento.domain.entities.Pessoa;
 
 @Component
-@RequiredArgsConstructor
 public class PessoaMapper {
 
     public ObterPessoas.Response pessoaToObterPessoasResponse(List<Pessoa> pessoas) {

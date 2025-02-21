@@ -25,17 +25,17 @@ public class PessoaRepositoryImpl implements PessoaRepository {
 
     @Override
     public Optional<Pessoa> buscarPorId(Long id) {
-        return pessoaJpaRepository.findById(id);
+        return pessoaJpaRepository.buscarPorId(id);
     }
 
     @Override
     public List<Pessoa> buscarTodos() {
-        return pessoaJpaRepository.findAll();
+        return pessoaJpaRepository.buscarTodos();
     }
 
     @Override
     public void deletar(Long id) {
-        pessoaJpaRepository.deleteById(id);
+        pessoaJpaRepository.deletar(id);
     }
 
     @Override

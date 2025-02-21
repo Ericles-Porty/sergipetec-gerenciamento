@@ -21,17 +21,18 @@ public class TarefaRepositoryImpl implements TarefaRepository {
 
     @Override
     public Optional<Tarefa> buscarPorId(Long id) {
-        return tarefaJpaRepository.findById(id);
+        return tarefaJpaRepository.buscarPorId(id);
     }
 
     @Override
     public List<Tarefa> buscarTodos() {
-        return tarefaJpaRepository.findAll();
+        return tarefaJpaRepository.buscarTodos();
     }
 
     @Override
     public Tarefa atualizar(Long id, Tarefa tarefa) {
-        Tarefa tarefaAtual = tarefaJpaRepository.findById(id).get();
+        Tarefa tarefaAtual = tarefaJpaRepository.buscarPorId(id).
+                orElseThrow(() -> new RuntimeException("Tarefa não encontrada"));
 
         tarefaAtual.setTitulo(tarefa.getTitulo());
         tarefaAtual.setDescricao(tarefa.getDescricao());
@@ -41,7 +42,7 @@ public class TarefaRepositoryImpl implements TarefaRepository {
 
     @Override
     public void deletar(Long id) {
-        tarefaJpaRepository.deleteById(id);
+        tarefaJpaRepository.deletar(id);
     }
 
     @Override

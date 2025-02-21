@@ -1,5 +1,8 @@
 package xyz.xpto.gerenciamento.infra.repositories.projeto;
 
+import java.util.List;
+import java.util.Optional;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -12,10 +15,10 @@ import xyz.xpto.gerenciamento.domain.entities.Projeto;
 public interface ProjetoJpaRepository extends JpaRepository<Projeto, Long> {
 
     @Query(value = "SELECT p FROM projeto p WHERE p.id = :id", nativeQuery = true)
-    Projeto buscarPorId(Long id);
+    Optional<Projeto> buscarPorId(Long id);
 
     @Query(value = "SELECT p FROM projeto p", nativeQuery = true)
-    Projeto buscarTodos();
+    List<Projeto> buscarTodos();
 
     @Modifying
     @Transactional

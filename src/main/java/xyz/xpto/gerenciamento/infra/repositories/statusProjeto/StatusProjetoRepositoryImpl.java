@@ -1,5 +1,6 @@
 package xyz.xpto.gerenciamento.infra.repositories.statusProjeto;
 
+import java.util.List;
 import java.util.Optional;
 
 import xyz.xpto.gerenciamento.application.interfaces.repositories.StatusProjetoRepository;
@@ -21,6 +22,11 @@ public class StatusProjetoRepositoryImpl implements StatusProjetoRepository {
     @Override
     public Optional<StatusProjeto> buscarPorId(Long id) {
         return statusProjetoJpaRepository.buscarPorId(id);
+    }
+
+    @Override
+    public List<StatusProjeto> buscarTodos() {
+        return statusProjetoJpaRepository.buscarTodos();
     }
 
     @Override

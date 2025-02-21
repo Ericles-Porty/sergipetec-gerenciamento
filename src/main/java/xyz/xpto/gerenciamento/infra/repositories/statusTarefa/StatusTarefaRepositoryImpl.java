@@ -1,5 +1,6 @@
 package xyz.xpto.gerenciamento.infra.repositories.statusTarefa;
 
+import java.util.List;
 import java.util.Optional;
 
 import xyz.xpto.gerenciamento.application.interfaces.repositories.StatusTarefaRepository;
@@ -20,7 +21,12 @@ public class StatusTarefaRepositoryImpl implements StatusTarefaRepository {
 
     @Override
     public Optional<StatusTarefa> buscarPorId(Long id) {
-        return statusTarefaJpaRepository.findById(id);
+        return statusTarefaJpaRepository.buscarPorId(id);
+    }
+
+    @Override
+    public List<StatusTarefa> buscarTodos() {
+        return statusTarefaJpaRepository.buscarTodos();
     }
 
     @Override
@@ -30,7 +36,7 @@ public class StatusTarefaRepositoryImpl implements StatusTarefaRepository {
 
     @Override
     public void deletar(Long id) {
-        statusTarefaJpaRepository.deleteById(id);
+        statusTarefaJpaRepository.deletar(id);
     }
 
 }

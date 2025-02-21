@@ -1,5 +1,6 @@
 package xyz.xpto.gerenciamento.infra.repositories.tarefa;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -15,7 +16,7 @@ public interface TarefaJpaRepository extends JpaRepository<Tarefa, Long> {
     Optional<Tarefa> buscarPorId(Long id);
 
     @Query(value = "SELECT t FROM tarefa t", nativeQuery = true)
-    Tarefa buscarTodos();
+    List<Tarefa> buscarTodos();
 
     @Modifying
     @Transactional

@@ -21,17 +21,17 @@ public class ProjetoRepositoryImpl implements ProjetoRepository {
 
     @Override
     public Optional<Projeto> buscarPorId(Long id) {
-        return projetoJpaRepository.findById(id);
+        return projetoJpaRepository.buscarPorId(id);
     }
 
     @Override
     public List<Projeto> buscarTodos() {
-        return projetoJpaRepository.findAll();
+        return projetoJpaRepository.buscarTodos();
     }
 
     @Override
     public void deletar(Long id) {
-        projetoJpaRepository.deleteById(id);
+        projetoJpaRepository.deletar(id);
     }
 
     @Override

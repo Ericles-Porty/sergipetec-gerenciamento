@@ -57,6 +57,6 @@ public class PessoaService {
         pessoa.setNome(request.nome());
         var pessoaAtualizada = repository.salvar(pessoa);
 
-        return new AtualizarPessoa.Response(pessoaAtualizada.getId(), pessoaAtualizada.getNome());
+        return mapper.pessoaToAtualizarPessoaResponse(pessoaAtualizada);
     }
 }

@@ -14,10 +14,10 @@ import xyz.xpto.gerenciamento.domain.entities.Pessoa;
 @Repository
 public interface PessoaJpaRepository extends JpaRepository<Pessoa, Long> {
 
-    @Query(value = "SELECT p FROM pessoa p WHERE p.id = :id", nativeQuery = true)
+    @Query(value = "SELECT * FROM pessoa p WHERE p.id = :id", nativeQuery = true)
     Optional<Pessoa> buscarPorId(Long id);
 
-    @Query(value = "SELECT p FROM pessoa p", nativeQuery = true)
+    @Query(value = "SELECT * FROM pessoa p", nativeQuery = true)
     List<Pessoa> buscarTodos();
 
     @Modifying

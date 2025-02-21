@@ -4,9 +4,9 @@ import lombok.Builder;
 
 public record ObterStatusProjeto() {
 
-    public record Request(long id) {}
+    public record Request(Long id) {}
 
     @Builder
-    public record Response(long id, String nome) {}
+    public record Response(Long id, String nome) {}
 
 }

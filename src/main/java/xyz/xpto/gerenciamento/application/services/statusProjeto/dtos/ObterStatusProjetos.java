@@ -9,7 +9,7 @@ public record ObterStatusProjetos() {
     public record Request() {}
 
     @Builder
-    public record Response(List<StatusProjetoResponse> statusProjetoResponses) {
+    public record Response(List<StatusProjetoResponse> statusProjetos) {
 
         @Builder
         public record StatusProjetoResponse(long id, String nome) {}

@@ -25,7 +25,7 @@ import xyz.xpto.gerenciamento.api.extensions.ValidationExtension;
 
 @RestController
 @AllArgsConstructor
-@RequestMapping(value = "/api/pessoa", produces = MediaType.APPLICATION_JSON_VALUE)
+@RequestMapping(value = "/api/pessoas", produces = MediaType.APPLICATION_JSON_VALUE)
 public class PessoaController {
 
     private final PessoaService pessoaService;
@@ -33,11 +33,11 @@ public class PessoaController {
     @GetMapping(value = "/")
     public ResponseEntity<?> getPessoas() {
         ObterPessoas.Response response = pessoaService.obterPessoas(new ObterPessoas.Request());
-        return StandardResponse.success(response);
+        return StandardResponse.success(response.pessoas());
     }
 
     @GetMapping(value = "/{id}")
-    public ResponseEntity<?> getPessoa(@PathVariable long id) {
+    public ResponseEntity<?> getPessoa(@PathVariable Long id) {
         ObterPessoa.Response response = pessoaService.obterPessoa(new ObterPessoa.Request(id));
         return StandardResponse.success(response);
     }
@@ -48,11 +48,11 @@ public class PessoaController {
         ValidationExtension.validateBindingResult(bindingResult);
 
         var response = pessoaService.cadastrarPessoa(request);
-        return StandardResponse.success(response);
+        return StandardResponse.created(response);
     }
 
     @PutMapping(value = "/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<?> putPessoa(@PathVariable long id, @Valid @RequestBody AtualizarPessoa.Request request) {
+    public ResponseEntity<?> putPessoa(@PathVariable Long id, @Valid @RequestBody AtualizarPessoa.Request request) {
         if (id != request.id()) {
             return StandardResponse
                     .badRequest("O id informado na URL é diferente do id informado no corpo da requisição.");
@@ -62,7 +62,7 @@ public class PessoaController {
     }
 
     @DeleteMapping(value = "/{id}")
-    public ResponseEntity<?> deletePessoa(@PathVariable long id) {
+    public ResponseEntity<?> deletePessoa(@PathVariable Long id) {
         pessoaService.deletarPessoa(new DeletarPessoa.Request(id));
         return StandardResponse.success();
     }

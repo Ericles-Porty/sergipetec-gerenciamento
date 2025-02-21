@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Component;
 
+import xyz.xpto.gerenciamento.application.services.pessoa.dtos.AtualizarPessoa;
 import xyz.xpto.gerenciamento.application.services.pessoa.dtos.CadastrarPessoa;
 import xyz.xpto.gerenciamento.application.services.pessoa.dtos.ObterPessoa;
 import xyz.xpto.gerenciamento.application.services.pessoa.dtos.ObterPessoas;
@@ -50,5 +51,9 @@ public class PessoaMapper {
 
     public CadastrarPessoa.Response pessoaToCadastrarPessoaResponse(Pessoa pessoa) {
         return new CadastrarPessoa.Response(pessoa.getId(), pessoa.getNome());
+    }
+
+    public AtualizarPessoa.Response pessoaToAtualizarPessoaResponse(Pessoa pessoa) {
+        return new AtualizarPessoa.Response(pessoa.getId(), pessoa.getNome());
     }
 }

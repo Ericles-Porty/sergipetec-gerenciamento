@@ -53,10 +53,10 @@ public class PessoaController {
 
     @PutMapping(value = "/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<?> putPessoa(@PathVariable Long id, @Valid @RequestBody AtualizarPessoa.Request request) {
-        if (id != request.id()) {
+        if (id != request.id())
             return StandardResponse
                     .badRequest("O id informado na URL é diferente do id informado no corpo da requisição.");
-        }
+
         var response = pessoaService.atualizarPessoa(request);
         return StandardResponse.success(response);
     }

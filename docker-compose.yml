@@ -8,7 +8,6 @@ services:
       - APP_USER_PASSWORD=STD01@
     ports:
       - 1521:1521
-    restart: always
     networks:
       - gerenciamento-network
     volumes:

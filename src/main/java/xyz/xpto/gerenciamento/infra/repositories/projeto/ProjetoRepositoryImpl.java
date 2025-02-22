@@ -56,7 +56,7 @@ public class ProjetoRepositoryImpl implements ProjetoRepository {
         projetoAtual.setNome(projeto.getNome());
         projetoAtual.setDescricao(projeto.getDescricao());
         projetoAtual.setDataInicio(projeto.getDataInicio());
-        projetoAtual.setDataTermino(projeto.getDataTermino());
+        projetoAtual.setDataFim(projeto.getDataFim());
 
         return projetoJpaRepository.save(projetoAtual);
     }

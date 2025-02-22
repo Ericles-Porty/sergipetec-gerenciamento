@@ -22,14 +22,14 @@ services:
       interval: 10s
       retries: 5
       start_period: 10s
-    deploy:
-      resources:
-        limits:
-          cpus: "1"
-          memory: 1.5G
-        reservations:
-          cpus: "0.5"
-          memory: 1G
+    # deploy:
+    #   resources:
+    #     limits:
+    #       cpus: "1"
+    #       memory: 1.5G
+    #     reservations:
+    #       cpus: "0.5"
+    #       memory: 1G
 
   # redis:
   #   image: "redis:latest"
@@ -57,14 +57,14 @@ services:
       - "8080:8080"
     networks:
       - gerenciamento-network
-    deploy:
-      resources:
-        limits:
-          cpus: "0.5"
-          memory: 512M
-        reservations:
-          cpus: "0.25"
-          memory: 256M
+    # deploy:
+    #   resources:
+    #     limits:
+    #       cpus: "0.5"
+    #       memory: 512M
+    #     reservations:
+    #       cpus: "0.25"
+    #       memory: 256M
 
 networks:
   gerenciamento-network:

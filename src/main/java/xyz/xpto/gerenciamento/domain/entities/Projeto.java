@@ -38,8 +38,8 @@ public class Projeto {
     @Column(name = "data_inicio", nullable = false)
     private LocalDate dataInicio;
 
-    @Column(name = "data_termino", nullable = false)
-    private LocalDate dataTermino;
+    @Column(name = "data_fim", nullable = false)
+    private LocalDate dataFim;
 
     @ManyToOne
     @JoinColumn(name = "equipe_id", nullable = false)

@@ -35,4 +35,7 @@ public class Equipe {
     @OneToMany(mappedBy = "equipe", targetEntity = Pessoa.class, orphanRemoval = true, cascade = CascadeType.ALL)
     private List<Pessoa> pessoas;
 
+    @OneToMany(mappedBy = "equipe", targetEntity = Projeto.class, orphanRemoval = true, cascade = CascadeType.ALL)
+    private List<Projeto> projetos;
+
 }

@@ -23,8 +23,8 @@ import lombok.Setter;
 @NoArgsConstructor
 public class StatusTarefa {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY, generator = "tarefa_id_sequence")
-    @SequenceGenerator(name = "tarefa_id_sequence", sequenceName = "tarefa_id_sequence", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.IDENTITY, generator = "status_tarefa_id_sequence")
+    @SequenceGenerator(name = "status_tarefa_id_sequence", sequenceName = "status_tarefa_id_sequence", allocationSize = 1)
     @Column(name = "id")
     private long id;
 

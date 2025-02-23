@@ -1,5 +1,6 @@
 package xyz.xpto.gerenciamento.application.services.projeto;
 
+import java.time.LocalDate;
 import java.util.Optional;
 
 import org.springframework.http.HttpStatus;
@@ -20,6 +21,7 @@ import xyz.xpto.gerenciamento.application.services.projeto.dtos.ObterProjeto;
 import xyz.xpto.gerenciamento.application.services.projeto.dtos.ObterProjetos;
 import xyz.xpto.gerenciamento.domain.entities.Equipe;
 import xyz.xpto.gerenciamento.domain.entities.Projeto;
+import xyz.xpto.gerenciamento.domain.entities.StatusProjeto;
 
 @Service
 @RequiredArgsConstructor
@@ -43,10 +45,14 @@ public class ProjetoService {
 
     public CadastrarProjeto.Response cadastrarProjeto(CadastrarProjeto.Request request) {
         Projeto projeto = new Projeto();
+        StatusProjeto statusProjeto = statusProjetoRepository.buscarPorId(1L)
+                .orElseThrow(
+                        () -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Status do projeto não encontrado"));
         projeto.setNome(request.nome());
         projeto.setDescricao(request.descricao());
-        projeto.setDataInicio(request.dataInicio());
-        projeto.setDataFim(request.dataFim());
+        projeto.setDataInicio(Optional.ofNullable(request.dataInicio()).orElse(LocalDate.now()));
+        projeto.setDataFim(Optional.ofNullable(request.dataFim()).orElse(LocalDate.now().plusYears(1L)));
+        projeto.setStatusProjeto(statusProjeto);
 
         Projeto projetoCriado = repository.salvar(projeto);
 

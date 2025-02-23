@@ -7,19 +7,20 @@ import lombok.Builder;
 
 public record ObterProjetos() {
 
-    public record Request() {}
+	public record Request() {}
 
-    @Builder
-    public record Response(List<ProjetoResponse> projetos) {
+	@Builder
+	public record Response(List<ProjetoResponse> projetos) {
 
-        @Builder
-        public record ProjetoResponse(
-                Long id,
-                String nome,
-                String descricao,
-                LocalDate dataInicio,
-                LocalDate dataFim,
-                String status) {}
-    }
+		@Builder
+		public record ProjetoResponse(
+				Long id,
+				String nome,
+				String descricao,
+				LocalDate dataInicio,
+				LocalDate dataFim,
+				String equipeResponsavel,
+				String status) {}
+	}
 
 }

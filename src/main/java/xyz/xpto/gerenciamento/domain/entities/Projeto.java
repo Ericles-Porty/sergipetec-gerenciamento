@@ -24,7 +24,7 @@ import lombok.Setter;
 @NoArgsConstructor
 public class Projeto {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY, generator = "projeto_id_sequence")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "projeto_id_sequence")
     @SequenceGenerator(name = "projeto_id_sequence", sequenceName = "projeto_id_sequence", allocationSize = 1)
     @Column(name = "id")
     private long id;
@@ -38,11 +38,11 @@ public class Projeto {
     @Column(name = "data_inicio", nullable = false)
     private LocalDate dataInicio;
 
-    @Column(name = "data_fim", nullable = false)
+    @Column(name = "data_fim", nullable = true)
     private LocalDate dataFim;
 
     @ManyToOne
-    @JoinColumn(name = "equipe_id", nullable = false)
+    @JoinColumn(name = "equipe_id", nullable = true)
     private Equipe equipe;
 
     @ManyToOne

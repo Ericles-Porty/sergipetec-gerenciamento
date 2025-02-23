@@ -3,9 +3,12 @@ package xyz.xpto.gerenciamento.infra.repositories.projeto;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.stereotype.Repository;
+
 import xyz.xpto.gerenciamento.application.interfaces.repositories.ProjetoRepository;
 import xyz.xpto.gerenciamento.domain.entities.Projeto;
 
+@Repository
 public class ProjetoRepositoryImpl implements ProjetoRepository {
 
     private final ProjetoJpaRepository projetoJpaRepository;

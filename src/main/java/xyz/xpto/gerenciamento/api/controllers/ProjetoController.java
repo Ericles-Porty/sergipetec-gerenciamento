@@ -5,11 +5,11 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import jakarta.validation.Valid;
@@ -39,7 +39,8 @@ public class ProjetoController {
     }
 
     @GetMapping(value = "/{id}")
-    public ResponseEntity<?> getProjeto(@RequestParam Long id) {
+    public ResponseEntity<?> getProjeto(
+            @PathVariable Long id) {
         ObterProjeto.Response response = projetoService.obterProjeto(new ObterProjeto.Request(id));
         return StandardResponse.success(response);
     }
@@ -54,7 +55,9 @@ public class ProjetoController {
     }
 
     @PutMapping(value = "/{id}")
-    public ResponseEntity<?> putProjeto(@RequestParam Long id, @RequestBody @Valid AtualizarProjeto.Request request) {
+    public ResponseEntity<?> putProjeto(@PathVariable Long id, @RequestBody @Valid AtualizarProjeto.Request request,
+            BindingResult bindingResult) {
+        ValidationExtension.validateBindingResult(bindingResult);
         if (id != request.id())
             return StandardResponse
                     .badRequest("O id informado na URL é diferente do id informado no corpo da requisição.");
@@ -64,19 +67,19 @@ public class ProjetoController {
     }
 
     @DeleteMapping(value = "/{id}")
-    public ResponseEntity<?> deleteProjeto(@RequestParam Long id) {
+    public ResponseEntity<?> deleteProjeto(@PathVariable Long id) {
         var response = projetoService.deletarProjeto(new DeletarProjeto.Request(id));
         return StandardResponse.success(response);
     }
 
-    @PostMapping(value = "/{id}/equipes/{idEquipe}")
-    public ResponseEntity<?> associarProjetoEquipe(@RequestParam Long id, @RequestParam Long idEquipe) {
+    @PutMapping(value = "/{id}/equipes/{idEquipe}")
+    public ResponseEntity<?> associarProjetoEquipe(@PathVariable Long id, @PathVariable Long idEquipe) {
         var response = projetoService.associarProjetoEquipe(new AssociarProjetoEquipe.Request(id, idEquipe));
         return StandardResponse.success(response);
     }
 
-    @PutMapping(value = "/{id}/status")
-    public ResponseEntity<?> putProjetoStatus(@RequestParam Long id, @RequestParam Long idStatus) {
+    @PutMapping(value = "/{id}/status/{idStatus}")
+    public ResponseEntity<?> putProjetoStatus(@PathVariable Long id, @PathVariable Long idStatus) {
         var response = projetoService.modificarStatusProjeto(new ModificarStatusProjeto.Request(id, idStatus));
         return StandardResponse.success(response);
     }

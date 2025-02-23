@@ -6,16 +6,16 @@ import lombok.Builder;
 
 public record ObterProjeto() {
 
-    public record Request(Long id) {}
+	public record Request(Long id) {}
 
-    @Builder
-    public record Response(
-            Long id,
-            String nome,
-            String descricao,
-            LocalDate dataInicio,
-            LocalDate dataFim,
-            String equipeResponsavel,
-            String status) {}
+	@Builder
+	public record Response(
+			Long id,
+			String nome,
+			String descricao,
+			LocalDate dataInicio,
+			LocalDate dataFim,
+			String equipeResponsavel,
+			String status) {}
 
 }

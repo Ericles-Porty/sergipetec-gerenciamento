@@ -38,8 +38,8 @@ CREATE TABLE projeto (
     nome VARCHAR2(100) NOT NULL,
     descricao CLOB NOT NULL,
     data_inicio DATE NOT NULL,
-    data_fim DATE NOT NULL,
-    equipe_id NUMBER NOT NULL,
+    data_fim DATE NULL,
+    equipe_id NUMBER NULL,
     status_projeto_id NUMBER NOT NULL
 );
 

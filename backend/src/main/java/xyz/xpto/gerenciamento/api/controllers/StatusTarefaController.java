@@ -30,7 +30,7 @@ public class StatusTarefaController {
 
     private final StatusTarefaService statusTarefaService;
 
-    @GetMapping(value = "/")
+    @GetMapping(value = "")
     public ResponseEntity<?> getStatusTarefas() {
         ObterStatusTarefas.Response response = statusTarefaService.obterStatusTarefas(new ObterStatusTarefas.Request());
         return StandardResponse.success(response.statusTarefas());
@@ -42,7 +42,7 @@ public class StatusTarefaController {
         return StandardResponse.success(response);
     }
 
-    @PostMapping(value = "/", consumes = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(value = "", consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<?> postStatusTarefa(
             @Valid @RequestBody CadastrarStatusTarefa.Request request,
             BindingResult bindingResult) {

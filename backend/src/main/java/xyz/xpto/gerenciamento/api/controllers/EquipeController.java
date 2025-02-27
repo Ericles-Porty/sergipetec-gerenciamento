@@ -39,13 +39,13 @@ public class EquipeController {
         return StandardResponse.success(response);
     }
 
-    @GetMapping(value = "/")
+    @GetMapping(value = "")
     public ResponseEntity<?> obterEquipes() {
         var response = equipeService.obterEquipes(new ObterEquipes.Request());
         return StandardResponse.success(response.equipes());
     }
 
-    @PostMapping(value = "/")
+    @PostMapping(value = "")
     public ResponseEntity<?> cadastrarEquipe(@RequestBody @Valid CadastrarEquipe.Request request,
             BindingResult bindingResult) {
         ValidationExtension.validateBindingResult(bindingResult);

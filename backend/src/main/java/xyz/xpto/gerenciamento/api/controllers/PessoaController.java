@@ -30,7 +30,7 @@ public class PessoaController {
 
     private final PessoaService pessoaService;
 
-    @GetMapping(value = "/")
+    @GetMapping(value = "")
     public ResponseEntity<?> getPessoas() {
         ObterPessoas.Response response = pessoaService.obterPessoas(new ObterPessoas.Request());
         return StandardResponse.success(response.pessoas());
@@ -42,7 +42,7 @@ public class PessoaController {
         return StandardResponse.success(response);
     }
 
-    @PostMapping(value = "/", consumes = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(value = "", consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<?> postPessoa(@Valid @RequestBody CadastrarPessoa.Request request,
             BindingResult bindingResult) {
         ValidationExtension.validateBindingResult(bindingResult);

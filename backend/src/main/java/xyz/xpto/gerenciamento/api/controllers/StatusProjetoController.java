@@ -30,7 +30,7 @@ public class StatusProjetoController {
 
     private final StatusProjetoService statusProjetoService;
 
-    @GetMapping(value = "/")
+    @GetMapping(value = "")
     public ResponseEntity<?> getStatusProjetos() {
         ObterStatusProjetos.Response response = statusProjetoService.obterStatusProjetos(new ObterStatusProjetos.Request());
         return StandardResponse.success(response.statusProjetos());
@@ -42,7 +42,7 @@ public class StatusProjetoController {
         return StandardResponse.success(response);
     }
 
-    @PostMapping(value = "/", consumes = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(value = "", consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<?> postStatusProjeto(
             @Valid @RequestBody CadastrarStatusProjeto.Request request,
             BindingResult bindingResult) {

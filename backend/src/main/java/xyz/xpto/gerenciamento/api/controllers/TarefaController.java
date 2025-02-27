@@ -33,7 +33,7 @@ public class TarefaController {
 
 	private final TarefaService tarefaService;
 
-	@GetMapping(value = "/")
+	@GetMapping(value = "")
 	public ResponseEntity<?> getTarefas() {
 		ObterTarefas.Response response = tarefaService.obterTarefas(new ObterTarefas.Request());
 		return StandardResponse.success(response.tarefas());
@@ -46,7 +46,7 @@ public class TarefaController {
 		return StandardResponse.success(response);
 	}
 
-	@PostMapping(value = "/")
+	@PostMapping(value = "")
 	public ResponseEntity<?> postTarefa(@RequestBody @Valid CadastrarTarefa.Request request,
 			BindingResult bindingResult) {
 		ValidationExtension.validateBindingResult(bindingResult);

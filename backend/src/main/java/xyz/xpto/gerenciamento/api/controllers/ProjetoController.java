@@ -33,7 +33,7 @@ public class ProjetoController {
 
 	private final ProjetoService projetoService;
 
-	@GetMapping(value = "/")
+	@GetMapping(value = "")
 	public ResponseEntity<?> getProjetos() {
 		ObterProjetos.Response response = projetoService.obterProjetos(new ObterProjetos.Request());
 		return StandardResponse.success(response.projetos());
@@ -46,7 +46,7 @@ public class ProjetoController {
 		return StandardResponse.success(response);
 	}
 
-	@PostMapping(value = "/")
+	@PostMapping(value = "")
 	public ResponseEntity<?> postProjeto(@RequestBody @Valid CadastrarProjeto.Request request,
 			BindingResult bindingResult) {
 		ValidationExtension.validateBindingResult(bindingResult);

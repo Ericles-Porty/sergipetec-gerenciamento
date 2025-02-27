@@ -134,7 +134,7 @@ public class TarefaService {
 	}
 
 	public DesassociarTarefaPessoa.Response desassociarTarefaPessoa(DesassociarTarefaPessoa.Request request) {
-		Tarefa tarefa = repository.buscarPorId(request.idTarefa())
+		Tarefa tarefa = repository.buscarPorId(request.id())
 				.orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Tarefa não encontrada"));
 
 		tarefa.setResponsavel(null);

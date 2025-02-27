@@ -72,23 +72,19 @@ public class TarefaController {
 
 	@PutMapping(value = "/{id}/status/{idStatus}")
 	public ResponseEntity<?> putStatusTarefa(@PathVariable Long id, @PathVariable Long idStatus) {
-
 		var response = tarefaService.modificarStatusTarefa(new ModificarStatusTarefa.Request(id, idStatus));
 		return StandardResponse.success(response);
 	}
 
 	@PutMapping(value = "/{id}/pessoa/{idPessoa}")
-	public ResponseEntity<?> putPessoaTarefa(@PathVariable Long id, @PathVariable Long idPessoa,
-			@RequestBody @Valid AssociarTarefaPessoa.Request request, BindingResult bindingResult) {
-		ValidationExtension.validateBindingResult(bindingResult);
-
-		var response = tarefaService.associarTarefaPessoa(request);
+	public ResponseEntity<?> putPessoaTarefa(@PathVariable Long id, @PathVariable Long idPessoa) {
+		var response = tarefaService.associarTarefaPessoa(new AssociarTarefaPessoa.Request(id, idPessoa));
 		return StandardResponse.success(response);
 	}
 
-	@DeleteMapping(value = "/{id}/pessoa/{idPessoa}")
-	public ResponseEntity<?> deletePessoaTarefa(@PathVariable Long id, @PathVariable Long idPessoa) {
-		var response = tarefaService.desassociarTarefaPessoa(new DesassociarTarefaPessoa.Request(id, idPessoa));
+	@DeleteMapping(value = "/{id}/pessoa")
+	public ResponseEntity<?> deletePessoaTarefa(@PathVariable Long id) {
+		var response = tarefaService.desassociarTarefaPessoa(new DesassociarTarefaPessoa.Request(id));
 		return StandardResponse.success(response);
 	}
 

@@ -103,7 +103,7 @@ CREATE TABLE tarefa (
     titulo VARCHAR2(100) NOT NULL,
     descricao CLOB NOT NULL,
     projeto_id NUMBER NOT NULL,
-    pessoa_id NUMBER NOT NULL,
+    pessoa_id NUMBER NULL,
     status_tarefa_id NUMBER NOT NULL
 );
 

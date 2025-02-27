@@ -41,6 +41,7 @@ docker-compose up -d
 2. Execute as migrações:
 
 ```bash
+cd backend
 mvn flyway:migrate
 ```
 
@@ -73,6 +74,7 @@ docker-compose up -f docker-compose.prod.yml -d
 
 Para executar os testes:
 ```bash
+cd backend
 mvn test
 ```
 

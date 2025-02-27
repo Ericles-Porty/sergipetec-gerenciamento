@@ -22,13 +22,13 @@ services:
       retries: 5
       start_period: 10s
 
-  app:
+  backend:
     build:
-      context: .
+      context: ./backend
       dockerfile: Dockerfile
-    container_name: gerenciamento-app
+    container_name: gerenciamento-backend
     volumes:
-      - .:/app:cached
+      - ./backend:/app:cached
     command: mvn spring-boot:run
     environment:
       SPRING_DATASOURCE_URL: jdbc:oracle:thin:@oracle/FREEPDB1
@@ -40,6 +40,18 @@ services:
       - "8080:8080"
     networks:
       - gerenciamento-network
+
+  # frontend:
+  #   build:
+  #     context: ./frontend
+  #     dockerfile: Dockerfile
+  #   container_name: gerenciamento-frontend
+  #   ports:
+  #     - "5173:5173"
+  #   networks:
+  #     - gerenciamento-network
+  #   depends_on:
+  #     - backend
       
 networks:
   gerenciamento-network:

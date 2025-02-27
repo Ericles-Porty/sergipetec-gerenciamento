@@ -3,9 +3,12 @@ package xyz.xpto.gerenciamento.infra.repositories.tarefa;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.stereotype.Repository;
+
 import xyz.xpto.gerenciamento.application.interfaces.repositories.TarefaRepository;
 import xyz.xpto.gerenciamento.domain.entities.Tarefa;
 
+@Repository
 public class TarefaRepositoryImpl implements TarefaRepository {
 
     private final TarefaJpaRepository tarefaJpaRepository;

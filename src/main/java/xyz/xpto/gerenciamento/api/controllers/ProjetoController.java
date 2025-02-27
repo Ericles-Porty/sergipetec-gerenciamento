@@ -73,13 +73,13 @@ public class ProjetoController {
 		return StandardResponse.success(response);
 	}
 
-	@PutMapping(value = "/{id}/equipes/{idEquipe}")
+	@PutMapping(value = "/{id}/equipe/{idEquipe}")
 	public ResponseEntity<?> associarProjetoEquipe(@PathVariable Long id, @PathVariable Long idEquipe) {
 		var response = projetoService.associarProjetoEquipe(new AssociarProjetoEquipe.Request(id, idEquipe));
 		return StandardResponse.success(response);
 	}
 
-	@DeleteMapping(value = "/{id}/equipes")
+	@DeleteMapping(value = "/{id}/equipe")
 	public ResponseEntity<?> desassociarProjetoEquipe(@PathVariable Long id) {
 		var response = projetoService.desassociarProjetoEquipe(new DesassociarProjetoEquipe.Request(id));
 		return StandardResponse.success(response);

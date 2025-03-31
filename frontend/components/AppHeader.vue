@@ -24,7 +24,7 @@ const menuItems = [
 </script>
 
 <template>
-	<header class="w-screen p-10 flex flex-row justify-center items-center">
+	<header class="w-full py-10 flex flex-row justify-center items-center">
 		<nav>
 			<div class="wrapper">
 				<ul class="flex flex-row gap-10 text-2xl">
@@ -43,5 +43,6 @@ const menuItems = [
 <style scoped>
 [aria-current] {
 	color: white;
+	transition: all 0.3s ease-in-out;
 }
 </style>

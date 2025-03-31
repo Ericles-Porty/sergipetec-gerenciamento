@@ -6,5 +6,3 @@ export const schemaAddPessoa = z.object({
 		.min(3, 'Nome da pessoa deve ter no mínimo 3 caracteres')
 		.max(100, 'Nome da pessoa deve ter no máximo 100 caracteres')
 })
-
-export type SchemaAddPessoa = z.infer<typeof schemaAddPessoa>

@@ -4,7 +4,7 @@ import AppFooter from '~/components/AppFooter.vue'
 </script>
 
 <template>
-	<div class="h-screen w-screen flex flex-col justify-between items-center">
+	<div class="h-screen w-full flex flex-col justify-between items-center">
 		<AppHeader />
 		<main class="p-5 w-full h-full">
 			<slot />
